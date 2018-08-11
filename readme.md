@@ -1,5 +1,7 @@
 # EODinJ
 
+[![Build status](https://travis-ci.org/javatarz/EODinJ.svg?branch=master)](https://travis-ci.org/javatarz/EODinJ)
+
 EODinJ (read: ee-oh-dinj) makes is easy to share daily updates with remote or distributed team members. It is optimized for multi-site teams that have two co-located groups at separate locations, such as a team split between USA and India.
 
 Each team member uses the EOD Machine web app on their own time to input information that they wish to share with the rest of the team. At pre-configured delivery times for each location, the EOD Machine will collate all entries and make them available on the webpage.
