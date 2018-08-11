@@ -5,9 +5,10 @@ EODinJ (read: ee-oh-dinj) makes is easy to share daily updates with remote or di
 Each team member uses the EOD Machine web app on their own time to input information that they wish to share with the rest of the team. At pre-configured delivery times for each location, the EOD Machine will collate all entries and make them available on the webpage.
 
 Other options include [Status Hero](https://statushero.com/) or [Standuply](https://standuply.com/), but they are costly and proprietary. The EOD Machine will always be open source and free. :joy:
+Other options include [Status Hero](https://statushero.com/) or [Standuply](https://standuply.com/), but they are costly and proprietary. The EOD Machine will always be open source and free. :joy:
 
 Want email's? Use [Ryan Oglesby](https://github.com/ryanoglesby08)'s [EOD machine](https://github.com/ryanoglesby08/the-eod-machine).
-Want something simpler that's web based? Used [EODiJ](https://github.com/javatarz/eodinj)
+Want something simpler that's web based? Used [EODinJ](https://github.com/javatarz/eodinj)
 
 Does this description look familiar? It's meant to :smile:
 
@@ -23,3 +24,7 @@ Welcome to the offline EOD machine.
 ### Pre-Requisites
 
 * Install Java
+
+## Developer notes
+
+REST API available on [swagger](http://localhost:8080/swagger-ui.html)
