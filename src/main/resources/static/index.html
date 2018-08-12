@@ -2,28 +2,42 @@
 <head>
   <title>EOD Updates (powered by EODinJ</title>
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 </head>
 
 <body>
-<h1>The EOD Machine</h1>
-<h2>Updates for <span class="header-date"></span></h2>
+<h2>EOD updates for <span class="header-date"></span></h2>
 <div id="daily-updates"></div>
 
-<h2>Add your updates</h2>
-<form id="eod-update-message">
-  <label for="topic">Topic: </label>
-  <select id="topic" name="topic"></select><br/>
+<div id="add-updates">
+  <hr/>
 
-  <input id="date" name="date" type="hidden"/>
+  <h2>Add your updates</h2>
+  <form id="eod-update-message">
+    <label for="topic">Topic: </label>
+    <select id="topic" name="topic"></select><br/>
 
-  <label>Author(s): </label>
-  <input name="author" type="text" placeholder="Pair 1/Pair 2"/><br/>
+    <input id="date" name="date" type="hidden"/>
 
-  <label>Message: </label>
-  <input name="message" type="text" placeholder="Update for the day"/><br/>
+    <label>Author(s): </label>
+    <input name="author" type="text" placeholder="Pair 1/Pair 2"/><br/>
 
-  <input id="form-submit" type="submit" value="Submit">
-</form>
+    <label>Message: </label>
+    <input name="message" type="text" placeholder="Update for the day"/><br/>
+
+    <input id="form-submit" type="submit" value="Submit">
+  </form>
+</div>
+
+<div id="jump-to-date">
+  <hr/>
+  <form id="jump-date-form">
+    <label for="jump-date">Date: </label>
+    <input id="jump-date"/>
+    <input id="jump-date-submit" type="submit" value="Fetch updates for date"/>
+  </form>
+</div>
 
 <script type="text/javascript">
   $.getJSON("/eod/topics", function (data) {
@@ -35,10 +49,11 @@
     });
   });
 
-  function setupDates(formattedDate) {
-    console.log("Setting current date: " + formattedDate);
-    $('.header-date').text(formattedDate);
-    $('#date').val(formattedDate);
+  function setupDates(currentDate) {
+    console.log("Setting current date: " + currentDate);
+    $('.header-date').text(currentDate);
+    $('#date').val(currentDate);
+    $('#jump-date').val(currentDate)
   }
 
   function findFormattedDate() {
@@ -49,30 +64,51 @@
   }
 
   $(document).ready(function () {
-    var formattedDate = findFormattedDate();
+    var currentDate = findFormattedDate();
+    var urlDate = getUrlParameter('date');
+    console.log("urlDate " + urlDate);
 
-    setupDates(formattedDate);
+    var first = urlDate != null;
+    console.log("First check " + first);
+    var second = urlDate !== currentDate;
+    console.log("Second check " + second);
+    if (first && second) {
+      currentDate = urlDate;
+      $('#add-updates').hide();
+    }
 
-    $.getJSON("/eod/" + formattedDate, function (data) {
-      console.log("updates: " + data);
-      $.each(data, function (index, item) {
-        var topic = item.topic.charAt(0).toUpperCase() + item.topic.substr(1).toLowerCase();
-        $('#daily-updates').append(
-          $("<span></span>").append(
-            $("<h3></h3>").text(topic),
-            $("<ul></ul>").attr('id', topic)
-          )
-        );
+    setupDates(currentDate);
 
-        $.each(item.message, function (index, item) {
-          $('#' + topic).append(
-            $("<li></li>").text("[" + item.author + "] " + item.message)
-          )
+    $.getJSON("/eod/" + currentDate, function (data) {
+      console.log("updates size: " + data.length);
+
+      if (data.length === 0) {
+        $('#daily-updates').html("No updates available for this date");
+      }
+      else {
+        $.each(data, function (index, item) {
+          var topic = item.topic.charAt(0).toUpperCase() + item.topic.substr(1).toLowerCase();
+          $('#daily-updates').append(
+            $("<span></span>").append(
+              $("<h3></h3>").text(topic),
+              $("<ul></ul>").attr('id', topic)
+            )
+          );
+
+          $.each(item.message, function (index, item) {
+            $('#' + topic).append(
+              $("<li></li>").text("[" + item.author + "] " + item.message)
+            )
+          });
         });
-      });
-
+      }
     });
-  });
+
+    $(function () {
+      $("#jump-date").datepicker({dateFormat: 'yy-mm-dd'});
+    });
+  })
+  ;
 
   $(function () {
     $('#eod-update-message').on('submit', function (e) {
@@ -92,8 +128,15 @@
         dataType: 'json'
       });
     });
-  });
 
+    $('#jump-date-form').on('submit', function (e) {
+      e.preventDefault();
+
+      var newDate = $('#jump-date').val();
+      console.log("Date is " + newDate);
+      location.href = '//' + location.host + location.pathname + "?date=" + newDate;
+    });
+  });
 
   function getFormData($form) {
     var result = {};
@@ -103,6 +146,13 @@
     });
 
     return JSON.stringify(result);
+  }
+
+  function getUrlParameter(name) {
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+    var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+    var results = regex.exec(location.search);
+    return results === null ? null : decodeURIComponent(results[1].replace(/\+/g, ' '));
   }
 </script>
 
