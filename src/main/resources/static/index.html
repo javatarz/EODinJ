@@ -66,13 +66,9 @@
   $(document).ready(function () {
     var currentDate = findFormattedDate();
     var urlDate = getUrlParameter('date');
-    console.log("urlDate " + urlDate);
+    console.log("urlDate: " + urlDate);
 
-    var first = urlDate != null;
-    console.log("First check " + first);
-    var second = urlDate !== currentDate;
-    console.log("Second check " + second);
-    if (first && second) {
+    if (urlDate != null && urlDate !== currentDate) {
       currentDate = urlDate;
       $('#add-updates').hide();
     }
