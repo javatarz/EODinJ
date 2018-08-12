@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import me.karun.eodinj.db.model.Message;
 
 import java.util.List;
+import java.util.Map;
 
 @Data
 @NoArgsConstructor
@@ -13,4 +14,8 @@ import java.util.List;
 public class UpdateEntryResponse {
   private Topic topic;
   private List<Message> message;
+
+  public UpdateEntryResponse(final Map.Entry<Topic, List<Message>> entry) {
+    this(entry.getKey(), entry.getValue());
+  }
 }
