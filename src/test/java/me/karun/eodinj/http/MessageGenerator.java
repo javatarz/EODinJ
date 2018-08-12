@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.IntStream;
 
-import static java.util.stream.Collectors.toUnmodifiableList;
+import static java.util.stream.Collectors.toList;
 
 class MessageGenerator {
   static List<Message> generateMessages(final int count, final Topic topic, final LocalDate date) {
-    return IntStream.rangeClosed(1, count).mapToObj(i -> message(topic, date, i)).collect(toUnmodifiableList());
+    return IntStream.rangeClosed(1, count).mapToObj(i -> message(topic, date, i)).collect(toList());
   }
 
   private static Message message(final Topic topic, final LocalDate date, final int number) {

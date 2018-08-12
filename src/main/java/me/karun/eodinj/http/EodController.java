@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.toUnmodifiableList;
+import static java.util.stream.Collectors.toList;
 
 @RestController
 @RequestMapping("/eod")
@@ -46,11 +46,11 @@ public class EodController {
       .collect(Collectors.toMap(Message::getTopic, Collections::singletonList, joinList))
       .entrySet().stream()
       .map(UpdateEntryResponse::new)
-      .collect(toUnmodifiableList());
+      .collect(toList());
   }
 
   @GetMapping("/topics")
   public List<Topic> fetchTopics() {
-    return Arrays.stream(Topic.values()).collect(toUnmodifiableList());
+    return Arrays.stream(Topic.values()).collect(toList());
   }
 }

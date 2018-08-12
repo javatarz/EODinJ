@@ -1,5 +1,5 @@
 package me.karun.eodinj.http.model;
 
-public enum Topic implements Comparable<Topic> {
+public enum Topic {
   story, action, others
 }

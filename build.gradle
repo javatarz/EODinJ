@@ -18,7 +18,7 @@ apply plugin: 'io.spring.dependency-management'
 
 group = 'me.karun'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = 1.10
+sourceCompatibility = 1.8
 
 repositories {
   mavenCentral()
@@ -41,7 +41,6 @@ dependencies {
 
   // Test
   testCompile('org.springframework.boot:spring-boot-starter-test')
-  testCompile("javax.xml.bind:jaxb-api:2.2.11") // Required for Java 9+ with Spring
   testCompile('org.assertj:assertj-core:3.10.0')
   // Lombok in test
   testAnnotationProcessor("org.projectlombok:lombok:$lombokVersion")
