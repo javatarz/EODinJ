@@ -7,9 +7,9 @@ EODinJ (read: **ee-oh-dinj**) makes is easy to share daily updates with remote o
 Each team member uses the EOD Machine web app on their own time to input information that they wish to share with the rest of the team. At pre-configured delivery times for each location, the EOD Machine will collate all entries and make them available on the webpage.
 
 Other options include [Status Hero](https://statushero.com/) or [Standuply](https://standuply.com/), but they are costly and proprietary. The EOD Machine will always be open source and free. :joy:
-Other options include [Status Hero](https://statushero.com/) or [Standuply](https://standuply.com/), but they are costly and proprietary. The EOD Machine will always be open source and free. :joy:
 
-Want email's? Use [Ryan Oglesby](https://github.com/ryanoglesby08)'s [EOD machine](https://github.com/ryanoglesby08/the-eod-machine).
+Want emails? Use [Ryan Oglesby](https://github.com/ryanoglesby08)'s [EOD machine](https://github.com/ryanoglesby08/the-eod-machine).
+
 Want something simpler that's web based? Use [EODinJ](https://github.com/javatarz/eodinj).
 
 Does this description look familiar? It's meant to :smile:
@@ -19,14 +19,18 @@ We've used [Ryan Oglesby](https://github.com/ryanoglesby08)'s [EOD machine](http
 
 Welcome to the offline EOD machine.
 
-## Installation
+## Running this application
 
 `java -jar eodinj.jar`
 
 ### Pre-Requisites
 
-* Install Java
+* JRE 10 (for running)
+* JDK 10 (for development)
 
-## Developer notes
+## Using this application
 
-REST API available on [swagger](http://localhost:8080/swagger-ui.html)
+Open [http://localhost:8080](http://localhost:8080) to access the UI.
+
+Open [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html) to access Swagger documentation for this project.
+
