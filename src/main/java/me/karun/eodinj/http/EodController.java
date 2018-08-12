@@ -50,7 +50,7 @@ public class EodController {
   }
 
   @GetMapping("/topics")
-  public List<String> fetchTopics() {
-    return Arrays.stream(Topic.values()).map(Object::toString).collect(toUnmodifiableList());
+  public List<Topic> fetchTopics() {
+    return Arrays.stream(Topic.values()).collect(toUnmodifiableList());
   }
 }

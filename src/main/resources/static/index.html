@@ -87,15 +87,16 @@
       }
       else {
         $.each(data, function (index, item) {
+          var topic = item.topic.charAt(0).toUpperCase() + item.topic.substr(1).toLowerCase();
           $('#daily-updates').append(
             $("<span></span>").append(
-              $("<h3></h3>").text(item.topic),
-              $("<ul></ul>").attr('id', item.topic)
+              $("<h3></h3>").text(topic),
+              $("<ul></ul>").attr('id', topic)
             )
           );
 
           $.each(item.message, function (index, item) {
-            $('#' + item.topic).append(
+            $('#' + topic).append(
               $("<li></li>").text("[" + item.author + "] " + item.message)
             )
           });
