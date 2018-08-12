@@ -1,0 +1,110 @@
+<html>
+<head>
+  <title>EOD Updates (powered by EODinJ</title>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+</head>
+
+<body>
+<h1>The EOD Machine</h1>
+<h2>Updates for <span class="header-date"></span></h2>
+<div id="daily-updates"></div>
+
+<h2>Add your updates</h2>
+<form id="eod-update-message">
+  <label for="topic">Topic: </label>
+  <select id="topic" name="topic"></select><br/>
+
+  <input id="date" name="date" type="hidden"/>
+
+  <label>Author(s): </label>
+  <input name="author" type="text" placeholder="Pair 1/Pair 2"/><br/>
+
+  <label>Message: </label>
+  <input name="message" type="text" placeholder="Update for the day"/><br/>
+
+  <input id="form-submit" type="submit" value="Submit">
+</form>
+
+<script type="text/javascript">
+  $.getJSON("/eod/topics", function (data) {
+    console.log("topics: " + data);
+    $.each(data, function (index, item) {
+      $('#topic').append(
+        $('<option></option>').val(item).html(item)
+      );
+    });
+  });
+
+  function setupDates(formattedDate) {
+    console.log("Setting current date: " + formattedDate);
+    $('.header-date').text(formattedDate);
+    $('#date').val(formattedDate);
+  }
+
+  function findFormattedDate() {
+    var date = new Date();
+    return date.getFullYear() + '-' +
+      (date.getMonth() + 1 < 10 ? '0' : '') + (date.getMonth() + 1) + '-' +
+      (date.getDate() < 10 ? '0' : '') + date.getDate();
+  }
+
+  $(document).ready(function () {
+    var formattedDate = findFormattedDate();
+
+    setupDates(formattedDate);
+
+    $.getJSON("/eod/" + formattedDate, function (data) {
+      console.log("updates: " + data);
+      $.each(data, function (index, item) {
+        var topic = item.topic.charAt(0).toUpperCase() + item.topic.substr(1).toLowerCase();
+        $('#daily-updates').append(
+          $("<span></span>").append(
+            $("<h3></h3>").text(topic),
+            $("<ul></ul>").attr('id', topic)
+          )
+        );
+
+        $.each(item.message, function (index, item) {
+          $('#' + topic).append(
+            $("<li></li>").text("[" + item.author + "] " + item.message)
+          )
+        });
+      });
+
+    });
+  });
+
+  $(function () {
+    $('#eod-update-message').on('submit', function (e) {
+      e.preventDefault();
+
+      var result = getFormData($(this));
+      console.log("submitted data " + result);
+
+      $.ajax({
+        type: 'POST',
+        url: '/eod',
+        data: result,
+        success: function () {
+          location.reload();
+        },
+        contentType: "application/json",
+        dataType: 'json'
+      });
+    });
+  });
+
+
+  function getFormData($form) {
+    var result = {};
+
+    $.map($form.serializeArray(), function (n) {
+      result[n.name] = n.value;
+    });
+
+    return JSON.stringify(result);
+  }
+</script>
+
+</body>
+</html>
