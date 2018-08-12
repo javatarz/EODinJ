@@ -38,6 +38,8 @@ dependencies {
   // Lombok
   annotationProcessor("org.projectlombok:lombok:$lombokVersion")
   compileOnly("org.projectlombok:lombok:$lombokVersion")
+  // Apache
+  compile('org.apache.commons:commons-text:1.4')
 
   // Test
   testCompile('org.springframework.boot:spring-boot-starter-test')
