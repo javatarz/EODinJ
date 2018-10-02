@@ -1,8 +1,8 @@
-# EODinJ
+# eOdin(j)
 
 [![Build status](https://travis-ci.org/javatarz/EODinJ.svg?branch=master)](https://travis-ci.org/javatarz/EODinJ)
 
-EODinJ (read: **ee-oh-dinj**) makes is easy to share daily updates with remote or distributed team members. It is optimized for multi-site teams that have two co-located groups at separate locations, such as a team split between USA and India.
+eOdin(j) (read: **ee-oh-din**) makes is easy to share daily updates with remote or distributed team members. It is optimized for multi-site teams that have two co-located groups at separate locations, such as a team split between USA and India.
 
 Each team member uses the EOD Machine web app on their own time to input information that they wish to share with the rest of the team. At pre-configured delivery times for each location, the EOD Machine will collate all entries and make them available on the webpage.
 
@@ -10,7 +10,7 @@ Other options include [Status Hero](https://statushero.com/) or [Standuply](http
 
 Want emails? Use [Ryan Oglesby](https://github.com/ryanoglesby08)'s [EOD machine](https://github.com/ryanoglesby08/the-eod-machine).
 
-Want something simpler that's web based? Use [EODinJ](https://github.com/javatarz/eodinj).
+Want something simpler that's web based? Use [eOdin(j)](https://github.com/javatarz/eodinj).
 
 Does this description look familiar? It's meant to :smile:
 
